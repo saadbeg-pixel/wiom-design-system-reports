@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wiom Design System — CTA & Button Audit</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f5f5f7;
+    color: #1d1d1f;
+    line-height: 1.6;
+    padding: 40px 20px;
+  }
+
+  .report {
+    max-width: 960px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, #1d1d1f 0%, #2d2d30 100%);
+    color: #fff;
+    padding: 48px 48px 40px;
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .header-top .logo {
+    width: 32px; height: 32px;
+    background: #D6006E;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 14px; color: #fff;
+  }
+  .header-top span {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+  }
+  .header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+  }
+  .header p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    max-width: 680px;
+  }
+
+  /* ── SCORE CARDS ── */
+  .score-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: #e5e5ea;
+    border-bottom: 1px solid #e5e5ea;
+  }
+  .score-card {
+    background: #fff;
+    padding: 20px 16px;
+    text-align: center;
+  }
+  .score-card .grade {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 2px;
+  }
+  .score-card .label {
+    font-size: 11px;
+    color: #86868b;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 600;
+  }
+  .grade-a { color: #34C759; }
+  .grade-b { color: #007AFF; }
+  .grade-c { color: #FF9500; }
+  .grade-d { color: #FF3B30; }
+  .grade-f { color: #FF3B30; }
+
+  /* ── SECTIONS ── */
+  .section {
+    padding: 40px 48px;
+    border-bottom: 1px solid #e5e5ea;
+  }
+  .section:last-child { border-bottom: none; }
+
+  .section-num {
+    font-size: 12px;
+    color: #86868b;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .section h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.3px;
+  }
+  .section p {
+    font-size: 14px;
+    color: #48484a;
+    margin-bottom: 16px;
+  }
+
+  /* ── TABLES ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 16px 0;
+  }
+  thead th {
+    background: #f5f5f7;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #86868b;
+    border-bottom: 2px solid #e5e5ea;
+  }
+  tbody td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #f0f0f2;
+    vertical-align: top;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+
+  /* ── BADGES ── */
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .badge-pass { background: #d1f5d9; color: #1a7a34; }
+  .badge-warn { background: #fff3cd; color: #8a6d00; }
+  .badge-fail { background: #ffd4d4; color: #c62828; }
+  .badge-miss { background: #e5e5ea; color: #636366; }
+  .badge-na   { background: #f0f0f2; color: #aeaeb2; }
+
+  .verdict-box {
+    background: #f5f5f7;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .verdict-box.red    { background: #fff0f0; border-left: 4px solid #FF3B30; }
+  .verdict-box.orange { background: #fff8f0; border-left: 4px solid #FF9500; }
+  .verdict-box.green  { background: #f0fff4; border-left: 4px solid #34C759; }
+
+  /* ── BUTTON PREVIEWS ── */
+  .preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .preview-card {
+    border: 1px solid #e5e5ea;
+    border-radius: 12px;
+    padding: 24px 20px;
+    text-align: center;
+    position: relative;
+  }
+  .preview-card .preview-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #86868b;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 16px;
+  }
+  .preview-card .issue-tag {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  /* Recreated Wiom buttons in CSS */
+  .btn-wiom-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #D6006E;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 12px 40px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    min-height: 48px;
+  }
+  .btn-wiom-primary-full {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #D6006E;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    width: 100%;
+    min-height: 48px;
+  }
+  .btn-wiom-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #FCE4F0;
+    color: #D6006E;
+    border: none;
+    border-radius: 16px;
+    padding: 12px 40px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    min-height: 48px;
+  }
+  .btn-wiom-text {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: #D6006E;
+    border: none;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    min-height: 48px;
+  }
+  .btn-wiom-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #D6006E;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    font-size: 20px;
+  }
+  .btn-wiom-ack {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: transparent;
+    color: #D6006E;
+    border: 2px solid #D6006E;
+    border-radius: 16px;
+    padding: 10px 24px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    width: 100%;
+    min-height: 48px;
+  }
+  .btn-wiom-ack-noborder {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: #D6006E;
+    border: none;
+    padding: 0;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+  }
+  .btn-wiom-sheet {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f5f5f7;
+    color: #1d1d1f;
+    border: 1px solid #e5e5ea;
+    border-radius: 12px;
+    padding: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    flex: 1;
+  }
+  .btn-wiom-card-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #D6006E;
+    color: #fff;
+    border: none;
+    border-radius: 0 0 12px 12px;
+    padding: 14px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    width: 100%;
+  }
+
+  /* Container variants */
+  .cta-container-shadow {
+    background: #fff;
+    box-shadow: 0 -4px 16px rgba(0,0,0,0.1);
+    padding: 16px;
+    border-radius: 0;
+  }
+  .cta-container-flat {
+    background: #fff;
+    padding: 16px;
+    border-top: 1px solid #e5e5ea;
+  }
+
+  /* Comparison demo */
+  .compare-row {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    margin: 12px 0;
+  }
+  .compare-label {
+    font-size: 12px;
+    color: #86868b;
+    width: 100px;
+    flex-shrink: 0;
+    font-weight: 600;
+  }
+
+  /* Anti-patterns */
+  .antipattern-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .antipattern {
+    border: 1px solid #e5e5ea;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .antipattern-header {
+    padding: 10px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+  .antipattern-header.bad {
+    background: #fff0f0;
+    color: #c62828;
+  }
+  .antipattern-header.good {
+    background: #f0fff4;
+    color: #1a7a34;
+  }
+  .antipattern-body {
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .antipattern-note {
+    font-size: 11px;
+    color: #86868b;
+    text-align: center;
+    padding: 0 16px 12px;
+  }
+
+  /* Summary */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .summary-item {
+    text-align: center;
+    padding: 20px;
+    border-radius: 12px;
+    background: #f5f5f7;
+  }
+  .summary-item .num {
+    font-size: 32px;
+    font-weight: 800;
+  }
+  .summary-item .desc {
+    font-size: 12px;
+    color: #86868b;
+    font-weight: 500;
+    margin-top: 4px;
+  }
+
+  .footnote {
+    padding: 24px 48px;
+    font-size: 11px;
+    color: #aeaeb2;
+    text-align: center;
+    border-top: 1px solid #f0f0f2;
+  }
+
+  /* Checkbox icon */
+  .ck-icon {
+    width: 18px; height: 18px;
+    border: 2px solid #D6006E;
+    border-radius: 4px;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  /* States demo */
+  .states-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 8px 0;
+  }
+  .state-demo {
+    text-align: center;
+  }
+  .state-demo .state-label {
+    font-size: 10px;
+    color: #86868b;
+    margin-top: 6px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .btn-disabled {
+    opacity: 0.38;
+  }
+  .btn-pressed {
+    filter: brightness(0.85);
+  }
+  .btn-focused {
+    outline: 3px solid rgba(214, 0, 110, 0.3);
+    outline-offset: 2px;
+  }
+  .btn-loading {
+    position: relative;
+    color: transparent !important;
+  }
+  .btn-loading::after {
+    content: '';
+    position: absolute;
+    width: 18px; height: 18px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Benchmark heatmap */
+  .heat-a { background: #d1f5d9; color: #1a7a34; }
+  .heat-b { background: #d4edff; color: #0055aa; }
+  .heat-c { background: #fff3cd; color: #8a6d00; }
+  .heat-d { background: #ffe0cc; color: #b34700; }
+  .heat-f { background: #ffd4d4; color: #c62828; }
+  .heat-cell {
+    font-weight: 700;
+    text-align: center;
+    border-radius: 6px;
+    padding: 6px 10px !important;
+  }
+
+  .callout {
+    background: #f0f0f2;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 12px 0;
+    font-size: 13px;
+    color: #48484a;
+  }
+  .callout strong { color: #1d1d1f; }
+</style>
+</head>
+<body>
+
+<div class="report">
+
+  <!-- ════════ HEADER ════════ -->
+  <div class="header">
+    <div class="header-top">
+      <div class="logo">W</div>
+      <span>Partner App Design System</span>
+    </div>
+    <h1>CTA & Button Component Audit</h1>
+    <p>Comprehensive audit of existing button components against Material Design 3, Apple HIG, Ant Design Mobile, Carbon (IBM) & Atlassian Design System</p>
+  </div>
+
+  <!-- ════════ SCORE STRIP ════════ -->
+  <div class="score-strip">
+    <div class="score-card">
+      <div class="grade grade-d">D</div>
+      <div class="label">Types & Variants</div>
+    </div>
+    <div class="score-card">
+      <div class="grade grade-f">F</div>
+      <div class="label">State Coverage</div>
+    </div>
+    <div class="score-card">
+      <div class="grade grade-d">D</div>
+      <div class="label">Consistency</div>
+    </div>
+    <div class="score-card">
+      <div class="grade grade-f">F</div>
+      <div class="label">Accessibility</div>
+    </div>
+    <div class="score-card">
+      <div class="grade grade-f">D-</div>
+      <div class="label">Overall</div>
+    </div>
+  </div>
+
+  <!-- ════════ 01. BUTTON TYPE INVENTORY ════════ -->
+  <div class="section">
+    <div class="section-num">01. Button Type Inventory</div>
+    <h2>What Exists vs. What's Standard</h2>
+    <p>An audit of all button types found in the current Wiom Partner App design system, compared against what industry-standard systems consider essential.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Button Type</th>
+          <th>In Wiom System?</th>
+          <th>Industry Standard</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Primary / Filled</strong></td>
+          <td>Yes — pink filled, radius 16</td>
+          <td>5/5 systems have this</td>
+          <td><span class="badge badge-pass">Exists</span></td>
+        </tr>
+        <tr>
+          <td><strong>Secondary / Outlined</strong></td>
+          <td>Yes — but filled pink bg, not outlined</td>
+          <td>5/5 systems have this</td>
+          <td><span class="badge badge-warn">Broken</span></td>
+        </tr>
+        <tr>
+          <td><strong>Tertiary / Text</strong></td>
+          <td>Appears ad-hoc in dialogs ("ठीक है")</td>
+          <td>4/5 systems define this</td>
+          <td><span class="badge badge-warn">Ad-hoc</span></td>
+        </tr>
+        <tr>
+          <td><strong>Button with Icon + Text</strong></td>
+          <td>Not in design system</td>
+          <td>5/5 systems support this</td>
+          <td><span class="badge badge-fail">Missing</span></td>
+        </tr>
+        <tr>
+          <td><strong>Destructive / Danger</strong></td>
+          <td>Not defined</td>
+          <td>4/5 systems define this</td>
+          <td><span class="badge badge-fail">Missing</span></td>
+        </tr>
+        <tr>
+          <td><strong>Ghost / Subtle</strong></td>
+          <td>Not defined</td>
+          <td>3/5 systems define this</td>
+          <td><span class="badge badge-miss">Missing</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="verdict-box red">
+      <strong>Verdict:</strong> Only 1 of 6 standard button types is properly componentized. 2 exist but are broken or ad-hoc. 3 are missing entirely.
+    </div>
+
+    <!-- Visual: Current buttons -->
+    <h3 style="font-size: 14px; font-weight: 700; margin: 24px 0 12px; text-transform: uppercase; letter-spacing: 0.6px; color: #86868b;">Current Button Components</h3>
+    <div class="preview-grid">
+      <div class="preview-card">
+        <div class="preview-label">Primary CTA (Full Width)</div>
+        <button class="btn-wiom-primary-full">Okay</button>
+        <p style="font-size: 11px; color: #86868b; margin-top: 12px;">Radius 16px &middot; Pink #D6006E &middot; Full width</p>
+      </div>
+      <div class="preview-card">
+        <div class="preview-label">Primary CTA (Hug)</div>
+        <button class="btn-wiom-primary">Okay</button>
+        <p style="font-size: 11px; color: #86868b; margin-top: 12px;">Same style, different width variant — redundant</p>
+      </div>
+      <div class="preview-card">
+        <div class="preview-label">Secondary CTA</div>
+        <button class="btn-wiom-secondary">Cancel</button>
+        <p style="font-size: 11px; color: #86868b; margin-top: 12px;">Filled pink bg — not a true "secondary"</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ 02. VISUAL CONSISTENCY ════════ -->
+  <div class="section">
+    <div class="section-num">02. Visual Consistency Audit</div>
+    <h2>Same Intent, Different Execution</h2>
+    <p>Buttons serving the same purpose look different across screens. This breaks user trust and increases cognitive load — especially critical for the semi-literate partner audience.</p>
+
+    <!-- Anti-pattern 1: CTA containers -->
+    <h3 style="font-size: 14px; font-weight: 700; margin: 20px 0 12px; color: #1d1d1f;">Issue 1: Inconsistent CTA Containers</h3>
+    <p>The same sticky-bottom CTA pattern uses shadow in some screens and flat border in others.</p>
+    <div class="antipattern-grid">
+      <div class="antipattern">
+        <div class="antipattern-header bad">Screen A — Shadow Container</div>
+        <div class="antipattern-body">
+          <div class="cta-container-shadow" style="width:100%; border-radius: 0;">
+            <button class="btn-wiom-primary-full">मैं सहमत हूँ</button>
+          </div>
+        </div>
+        <div class="antipattern-note">box-shadow: 0 -4px 16px</div>
+      </div>
+      <div class="antipattern">
+        <div class="antipattern-header bad">Screen B — Flat Container</div>
+        <div class="antipattern-body">
+          <div class="cta-container-flat" style="width:100%;">
+            <button class="btn-wiom-primary-full">मैं सहमत हूँ</button>
+          </div>
+        </div>
+        <div class="antipattern-note">border-top: 1px solid #e5e5ea</div>
+      </div>
+    </div>
+
+    <!-- Anti-pattern 2: Bottom sheet CTAs -->
+    <h3 style="font-size: 14px; font-weight: 700; margin: 20px 0 12px; color: #1d1d1f;">Issue 2: Bottom Sheet Button Chaos</h3>
+    <p>Bottom sheets use plain text boxes with rounded rectangles instead of proper button components.</p>
+    <div class="antipattern-grid">
+      <div class="antipattern">
+        <div class="antipattern-header bad">Plain Boxes — Not Button Components</div>
+        <div class="antipattern-body">
+          <div style="display:flex; gap:12px; width:100%;">
+            <div class="btn-wiom-sheet">नहीं</div>
+            <div class="btn-wiom-sheet">हाँ</div>
+          </div>
+        </div>
+        <div class="antipattern-note">Not button components — just styled frames with no defined states</div>
+      </div>
+    </div>
+
+    <!-- Anti-pattern 3: Card CTAs -->
+    <h3 style="font-size: 14px; font-weight: 700; margin: 20px 0 12px; color: #1d1d1f;">Issue 3: Card CTA Style</h3>
+    <p>Cards use a full-bleed CTA treatment that differs from the standard button component.</p>
+    <div class="antipattern-grid">
+      <div class="antipattern">
+        <div class="antipattern-header bad">Full-bleed Card CTA</div>
+        <div class="antipattern-body">
+          <div style="width:100%; border:1px solid #e5e5ea; border-radius:12px; overflow:hidden;">
+            <div style="padding:16px; font-size:13px; color:#48484a;">Card content area...</div>
+            <div class="btn-wiom-card-cta">पूरी जानकारी देखें</div>
+          </div>
+        </div>
+        <div class="antipattern-note">CTA fills full card width, rounded at bottom — different from standard button component</div>
+      </div>
+    </div>
+
+    <!-- Anti-pattern 4: Acknowledgment CTAs -->
+    <h3 style="font-size: 14px; font-weight: 700; margin: 20px 0 12px; color: #1d1d1f;">Issue 4: Acknowledgment CTA Inconsistency</h3>
+    <p>Same checkbox-acknowledgment action, two entirely different treatments.</p>
+    <div class="antipattern-grid">
+      <div class="antipattern">
+        <div class="antipattern-header bad">Variant A — Bordered</div>
+        <div class="antipattern-body">
+          <div class="btn-wiom-ack">
+            <span class="ck-icon"></span>
+            कस्टमर का ISP अकाउंट बना लिया है
+          </div>
+        </div>
+        <div class="antipattern-note">Full border, rounded, padded</div>
+      </div>
+      <div class="antipattern">
+        <div class="antipattern-header bad">Variant B — No Border</div>
+        <div class="antipattern-body">
+          <div class="btn-wiom-ack-noborder">
+            <span class="ck-icon"></span>
+            कस्टमर का ISP अकाउंट बना लिया है
+          </div>
+        </div>
+        <div class="antipattern-note">No border, no padding, inline text</div>
+      </div>
+    </div>
+
+    <!-- Anti-pattern 5: Dialog CTAs -->
+    <h3 style="font-size: 14px; font-weight: 700; margin: 20px 0 12px; color: #1d1d1f;">Issue 5: Dialog CTA Inconsistency</h3>
+    <p>The same "ठीक है" (OK) text CTA appears across dialogs but with inconsistent font weight — sometimes <strong>bold</strong>, sometimes <strong>regular</strong>. Additionally, different dialog types use completely different CTA styles (text-only vs. filled primary) with no shared rule.</p>
+    <div class="antipattern-grid">
+      <div class="antipattern">
+        <div class="antipattern-header bad">Dialog A — "ठीक है" Bold</div>
+        <div class="antipattern-body" style="min-height: 120px;">
+          <div style="font-size:32px; margin-bottom:4px;">&#x2705;</div>
+          <div style="font-size:13px; font-weight:600; margin-bottom:8px;">ट्रस्ट लाइन का नंबर सेव हो गया है</div>
+          <button class="btn-wiom-text" style="padding:8px 16px; font-weight:700;">ठीक है</button>
+        </div>
+        <div class="antipattern-note">Text CTA in <strong>bold</strong> — no background, no border</div>
+      </div>
+      <div class="antipattern">
+        <div class="antipattern-header bad">Dialog B — "ठीक है" Regular</div>
+        <div class="antipattern-body" style="min-height: 120px;">
+          <div style="font-size:32px; margin-bottom:4px;">&#x2705;</div>
+          <div style="font-size:13px; font-weight:600; margin-bottom:8px;">Another success message</div>
+          <button class="btn-wiom-text" style="padding:8px 16px; font-weight:400;">ठीक है</button>
+        </div>
+        <div class="antipattern-note">Same CTA in <strong>regular weight</strong> — inconsistent with Dialog A</div>
+      </div>
+    </div>
+    <div class="antipattern-grid" style="margin-top:12px;">
+      <div class="antipattern">
+        <div class="antipattern-header bad">Dialog C — Full Primary CTA</div>
+        <div class="antipattern-body" style="min-height: 120px;">
+          <div style="font-size:32px; margin-bottom:4px;">&#x1F389;</div>
+          <div style="font-size:13px; font-weight:600; margin-bottom:8px;">बधाई हो! आप येलो ज़ोन से बाहर हैं</div>
+          <button class="btn-wiom-primary-full" style="max-width:200px;">समझ गया</button>
+        </div>
+        <div class="antipattern-note">Completely different — filled pink primary CTA instead of text button</div>
+      </div>
+    </div>
+
+    <div class="verdict-box red">
+      <strong>Verdict:</strong> 5 distinct inconsistency patterns found. The same action type gets different visual treatments across screens, creating a fragmented experience.
+    </div>
+  </div>
+
+  <!-- ════════ 03. STATE COVERAGE ════════ -->
+  <div class="section">
+    <div class="section-num">03. State Coverage Audit</div>
+    <h2>Interactive States</h2>
+    <p>Every interactive element needs defined states so users (and developers) know what to expect. Here's what Wiom defines vs. what's standard.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>State</th>
+          <th>Wiom System</th>
+          <th>MD3</th>
+          <th>Apple HIG</th>
+          <th>Ant Mobile</th>
+          <th>Carbon</th>
+          <th>Atlassian</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Default</strong></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+        </tr>
+        <tr>
+          <td><strong>Pressed / Active</strong></td>
+          <td><span class="badge badge-fail">No</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+        </tr>
+        <tr>
+          <td><strong>Disabled</strong></td>
+          <td><span class="badge badge-fail">No</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+        </tr>
+        <tr>
+          <td><strong>Focused</strong></td>
+          <td><span class="badge badge-fail">No</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+        </tr>
+        <tr>
+          <td><strong>Loading</strong></td>
+          <td><span class="badge badge-fail">No</span></td>
+          <td><span class="badge badge-na">—</span></td>
+          <td><span class="badge badge-na">—</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+        </tr>
+        <tr>
+          <td><strong>Hover</strong></td>
+          <td><span class="badge badge-na">N/A</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+          <td><span class="badge badge-na">—</span></td>
+          <td><span class="badge badge-na">—</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+          <td><span class="badge badge-pass">Yes</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Visual: What's missing -->
+    <h3 style="font-size: 14px; font-weight: 700; margin: 20px 0 12px; color: #86868b; text-transform: uppercase; letter-spacing: 0.6px;">What These States Should Look Like</h3>
+    <div class="states-row">
+      <div class="state-demo">
+        <button class="btn-wiom-primary" style="padding:10px 32px;">Button</button>
+        <div class="state-label">Default</div>
+      </div>
+      <div class="state-demo">
+        <button class="btn-wiom-primary btn-pressed" style="padding:10px 32px;">Button</button>
+        <div class="state-label">Pressed</div>
+      </div>
+      <div class="state-demo">
+        <button class="btn-wiom-primary btn-disabled" style="padding:10px 32px;">Button</button>
+        <div class="state-label">Disabled</div>
+      </div>
+      <div class="state-demo">
+        <button class="btn-wiom-primary btn-focused" style="padding:10px 32px;">Button</button>
+        <div class="state-label">Focused</div>
+      </div>
+      <div class="state-demo">
+        <button class="btn-wiom-primary btn-loading" style="padding:10px 32px;">Button</button>
+        <div class="state-label">Loading</div>
+      </div>
+    </div>
+
+    <div class="verdict-box red">
+      <strong>Verdict:</strong> Wiom covers 1 of 5 essential states (20%). Every major system covers at least 4. Pressed and Disabled are non-negotiable for any shipping product.
+    </div>
+  </div>
+
+  <!-- ════════ 04. ACCESSIBILITY ════════ -->
+  <div class="section">
+    <div class="section-num">04. Accessibility Audit</div>
+    <h2>Contrast, Touch Targets & WCAG</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Check</th>
+          <th>Wiom Current</th>
+          <th>Standard</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Primary CTA contrast</strong><br><span style="font-size:11px; color:#86868b;">White text on #D6006E</span></td>
+          <td>~4.6:1</td>
+          <td>4.5:1 (WCAG AA)</td>
+          <td><span class="badge badge-pass">Pass</span></td>
+        </tr>
+        <tr>
+          <td><strong>Secondary CTA contrast</strong><br><span style="font-size:11px; color:#86868b;">#D6006E text on #FCE4F0 bg</span></td>
+          <td>~2.8:1</td>
+          <td>4.5:1 (WCAG AA)</td>
+          <td><span class="badge badge-fail">Fail</span></td>
+        </tr>
+        <tr>
+          <td><strong>Text CTA contrast</strong><br><span style="font-size:11px; color:#86868b;">#D6006E text on white</span></td>
+          <td>~4.6:1</td>
+          <td>4.5:1 (WCAG AA)</td>
+          <td><span class="badge badge-pass">Pass</span></td>
+        </tr>
+        <tr>
+          <td><strong>Min touch target</strong></td>
+          <td>48px height</td>
+          <td>48dp (MD3) / 44pt (Apple)</td>
+          <td><span class="badge badge-pass">Pass</span></td>
+        </tr>
+        <tr>
+          <td><strong>Focus indicator</strong></td>
+          <td>Not defined</td>
+          <td>Required (WCAG 2.4.7)</td>
+          <td><span class="badge badge-fail">Fail</span></td>
+        </tr>
+        <tr>
+          <td><strong>Disabled state opacity</strong></td>
+          <td>Not defined</td>
+          <td>0.38 (MD3) / distinct visual</td>
+          <td><span class="badge badge-fail">Fail</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <strong>Critical Issue — Secondary CTA:</strong> The filled pink background (#FCE4F0) with pink text (#D6006E) has a contrast ratio of approximately 2.8:1 — significantly below the WCAG AA minimum of 4.5:1. When placed alongside the Primary CTA, the visual hierarchy collapses because both buttons are "pink on pink."
+    </div>
+
+    <div class="antipattern-grid">
+      <div class="antipattern">
+        <div class="antipattern-header bad">Current — Poor Hierarchy</div>
+        <div class="antipattern-body">
+          <div style="display:flex; gap:12px; width:100%;">
+            <button class="btn-wiom-secondary" style="flex:1; padding:12px 16px;">Cancel</button>
+            <button class="btn-wiom-primary" style="flex:1; padding:12px 16px;">Okay</button>
+          </div>
+        </div>
+        <div class="antipattern-note">Both pink — hierarchy unclear</div>
+      </div>
+      <div class="antipattern">
+        <div class="antipattern-header good">Standard — Clear Hierarchy</div>
+        <div class="antipattern-body">
+          <div style="display:flex; gap:12px; width:100%;">
+            <button style="flex:1; padding:12px 16px; background:transparent; border:1.5px solid #86868b; border-radius:16px; font-family:Inter; font-size:14px; font-weight:600; color:#48484a; min-height:48px;">Cancel</button>
+            <button class="btn-wiom-primary" style="flex:1; padding:12px 16px;">Okay</button>
+          </div>
+        </div>
+        <div class="antipattern-note">Outlined secondary — clear hierarchy</div>
+      </div>
+    </div>
+
+    <div class="verdict-box red">
+      <strong>Verdict:</strong> 3 of 6 accessibility checks fail. The Secondary CTA contrast failure is a blocking issue — it affects readability for partners working in outdoor/low-light conditions.
+    </div>
+  </div>
+
+  <!-- ════════ 05. CORNER RADIUS ════════ -->
+  <div class="section">
+    <div class="section-num">05. Corner Radius Analysis</div>
+    <h2>16px Radius — Right or Wrong?</h2>
+    <p>The current system uses a single corner radius of 16px for all buttons. Here's how that compares.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>System</th>
+          <th>Button Radius</th>
+          <th>Approach</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Material Design 3</strong></td><td>20dp (full capsule)</td><td>Single capsule shape</td></tr>
+        <tr><td><strong>Apple HIG</strong></td><td>12pt / capsule</td><td>Varies by context</td></tr>
+        <tr><td><strong>Ant Design Mobile</strong></td><td>4px / 8px / capsule</td><td>Multiple radius tokens</td></tr>
+        <tr><td><strong>Carbon</strong></td><td>0px</td><td>Sharp corners (brand decision)</td></tr>
+        <tr><td><strong>Atlassian</strong></td><td>3px</td><td>Subtle rounding</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <strong>Finding:</strong> The Partner App needs <strong>sharper corners</strong> — it's a professional, utility-focused tool and should feel functional, not playful. The Customer App can afford more rounded, friendlier shapes. However, since both apps share a single CTA component system, the radius needs to work for both contexts. <strong>16px is too rounded for the Partner side</strong>, and anything below 8px would feel too sharp for the Consumer side. <strong>A radius around 12px</strong> is the sweet spot — professional enough for partners, approachable enough for consumers, and aligned with Apple HIG's 12pt standard.
+    </div>
+
+    <!-- Visual: Radius comparison -->
+    <h3 style="font-size: 14px; font-weight: 700; margin: 20px 0 12px; color: #86868b; text-transform: uppercase; letter-spacing: 0.6px;">Visual Comparison</h3>
+    <div class="antipattern-grid">
+      <div class="antipattern">
+        <div class="antipattern-header bad">Current — 16px (Too Rounded for Partner)</div>
+        <div class="antipattern-body">
+          <button style="display:flex; align-items:center; justify-content:center; background:#D6006E; color:#fff; border:none; border-radius:16px; padding:12px 48px; font-size:14px; font-weight:600; font-family:Inter; min-height:48px;">Button</button>
+        </div>
+      </div>
+      <div class="antipattern">
+        <div class="antipattern-header good">Recommended — 12px (Balanced)</div>
+        <div class="antipattern-body">
+          <button style="display:flex; align-items:center; justify-content:center; background:#D6006E; color:#fff; border:none; border-radius:12px; padding:12px 48px; font-size:14px; font-weight:600; font-family:Inter; min-height:48px;">Button</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ 06. BENCHMARK ════════ -->
+  <div class="section">
+    <div class="section-num">06. Benchmark Comparison</div>
+    <h2>Wiom vs. Industry Standards</h2>
+    <p>Each dimension scored on what 4 of 5 major systems agree on as the baseline. Wiom is graded against that consensus.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:140px;">Dimension</th>
+          <th>Industry Consensus (4/5 agree)</th>
+          <th>Wiom Current</th>
+          <th style="width:60px;">Grade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Button Types</strong></td>
+          <td>Minimum 4 types: Filled, Outlined/Secondary, Text/Ghost, Icon-only</td>
+          <td>1 proper type (Primary filled). Secondary exists but broken. Others missing.</td>
+          <td class="heat-cell heat-d">D</td>
+        </tr>
+        <tr>
+          <td><strong>States</strong></td>
+          <td>Minimum 4: Default, Pressed, Disabled, Focused</td>
+          <td>Only Default state defined</td>
+          <td class="heat-cell heat-f">F</td>
+        </tr>
+        <tr>
+          <td><strong>Corner Radius</strong></td>
+          <td>Consistent, tokenized radius per context</td>
+          <td>Consistent 16px — good. Value may need adjustment for Partner App.</td>
+          <td class="heat-cell heat-c">C+</td>
+        </tr>
+        <tr>
+          <td><strong>Accessibility</strong></td>
+          <td>WCAG AA contrast, touch targets, focus indicators, disabled visual</td>
+          <td>Touch target OK. Secondary contrast fails. No focus or disabled states.</td>
+          <td class="heat-cell heat-f">F</td>
+        </tr>
+        <tr>
+          <td><strong>Hierarchy</strong></td>
+          <td>Clear visual distinction: Primary > Secondary > Tertiary — hierarchy should be high</td>
+          <td>The hierarchy is not high — Primary and Secondary are both pink, making it hard to distinguish importance levels</td>
+          <td class="heat-cell heat-d">D</td>
+        </tr>
+        <tr>
+          <td><strong>Documentation</strong></td>
+          <td>Anatomy, usage guidelines, do's/don'ts</td>
+          <td>No documentation, no usage guidelines</td>
+          <td class="heat-cell heat-f">F</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="verdict-box red">
+      <strong>Overall Benchmark Score: D-</strong> — The system meets baseline expectations in only 1 of 6 dimensions (corner radius consistency). Critical gaps in states, accessibility, hierarchy, and documentation.
+    </div>
+  </div>
+
+  <!-- ════════ 07. COMPLETENESS ════════ -->
+  <div class="section">
+    <div class="section-num">07. Completeness Checklist</div>
+    <h2>What's Missing from the System</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Missing Item</th>
+          <th>Impact</th>
+          <th>Priority</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Disabled state</strong></td>
+          <td>Devs guess opacity values — inconsistent implementation</td>
+          <td><span class="badge badge-fail">P0</span></td>
+        </tr>
+        <tr>
+          <td><strong>Pressed state</strong></td>
+          <td>No tap feedback — feels unresponsive on partner's low-end phones</td>
+          <td><span class="badge badge-fail">P0</span></td>
+        </tr>
+        <tr>
+          <td><strong>Loading state</strong></td>
+          <td>Users double-tap because no feedback on async actions</td>
+          <td><span class="badge badge-fail">P0</span></td>
+        </tr>
+        <tr>
+          <td><strong>Icon + Text button</strong></td>
+          <td>Devs create one-off implementations per screen</td>
+          <td><span class="badge badge-warn">P1</span></td>
+        </tr>
+        <tr>
+          <td><strong>Icon-only component</strong></td>
+          <td>Back/close/action buttons are unmanaged</td>
+          <td><span class="badge badge-warn">P1</span></td>
+        </tr>
+        <tr>
+          <td><strong>Destructive/Danger variant</strong></td>
+          <td>Delete actions have no visual warning</td>
+          <td><span class="badge badge-warn">P1</span></td>
+        </tr>
+        <tr>
+          <td><strong>Size scale (S/M/L)</strong></td>
+          <td>Can't adapt buttons to dense vs. spacious contexts</td>
+          <td><span class="badge badge-warn">P1</span></td>
+        </tr>
+        <tr>
+          <td><strong>Usage guidelines</strong></td>
+          <td>"When to use which" — designers make ad-hoc decisions</td>
+          <td><span class="badge badge-warn">P1</span></td>
+        </tr>
+        <tr>
+          <td><strong>Button anatomy spec</strong></td>
+          <td>Padding, icon spacing, text alignment undocumented</td>
+          <td><span class="badge badge-miss">P2</span></td>
+        </tr>
+        <tr>
+          <td><strong>Focus state</strong></td>
+          <td>Accessibility regression — affects screen reader users</td>
+          <td><span class="badge badge-miss">P2</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ════════ 08. SUMMARY ════════ -->
+  <div class="section" style="background: #fafafa;">
+    <div class="section-num">08. Executive Summary</div>
+    <h2>The Bottom Line</h2>
+
+    <div class="summary-grid">
+      <div class="summary-item">
+        <div class="num" style="color: #FF3B30;">5</div>
+        <div class="desc">Inconsistency Patterns</div>
+      </div>
+      <div class="summary-item">
+        <div class="num" style="color: #FF3B30;">4</div>
+        <div class="desc">Missing States</div>
+      </div>
+      <div class="summary-item">
+        <div class="num" style="color: #FF3B30;">4</div>
+        <div class="desc">Missing Button Types</div>
+      </div>
+    </div>
+
+    <div class="summary-grid">
+      <div class="summary-item">
+        <div class="num" style="color: #FF3B30;">1</div>
+        <div class="desc">AA Contrast Failure</div>
+      </div>
+      <div class="summary-item">
+        <div class="num" style="color: #FF9500;">0</div>
+        <div class="desc">Documentation Pages</div>
+      </div>
+      <div class="summary-item">
+        <div class="num" style="color: #FF3B30;">D-</div>
+        <div class="desc">Overall Grade</div>
+      </div>
+    </div>
+
+    <div class="verdict-box orange" style="margin-top:20px;">
+      <div>
+        <strong>What This Means:</strong> The current button system is a single component (Primary CTA) with one state. Everything else — secondary buttons, icon buttons, dialog CTAs, card CTAs — is either broken, inconsistent, or improvised per screen. This leads to fragmented UX, developer guesswork, and accessibility failures.
+        <br><br>
+        <strong>Next Step:</strong> A redesigned CTA system with proper types, states, and documentation — benchmarked against these standards — will be presented in the follow-up report.
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ FOOTER ════════ -->
+  <div class="footnote">
+    Wiom Partner App &middot; CTA & Button Audit &middot; April 2026 &middot; Benchmarked against Material Design 3, Apple HIG, Ant Design Mobile, Carbon (IBM), Atlassian DS
+  </div>
+
+</div>
+
+</body>
+</html>

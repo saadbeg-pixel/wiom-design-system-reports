@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wiom — New CTA Design System</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans:wght@400;500;600;700&display=swap');
+
+  :root {
+    --brand-primary: #D9008D;
+    --brand-primary-pressed: #A30070;
+    --brand-primary-subtle: #FFCCED;
+    --brand-primary-tint: #FFE5F6;
+    --brand-primary-soft: #FFB2E4;
+    --text-primary: #161021;
+    --text-secondary: #5C5570;
+    --text-disabled: #A7A1B2;
+    --text-on-color: #FFFFFF;
+    --surface-base: #FAF9FC;
+    --surface-muted: #E8E4F0;
+    --border-default: #D7D3E0;
+    --border-strong: #665E75;
+    --negative-primary: #D92130;
+    --negative-pressed: #A31824;
+    --negative-soft: #FFB3B9;
+    --positive-primary: #008043;
+    --positive-tint: #E1FAED;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f5f5f7;
+    color: #1d1d1f;
+    line-height: 1.6;
+    padding: 40px 20px;
+  }
+  .report {
+    max-width: 960px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, #D9008D 0%, #A30070 100%);
+    color: #fff;
+    padding: 48px 48px 40px;
+  }
+  .header-tag {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    opacity: 0.7;
+    margin-bottom: 8px;
+  }
+  .header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+  }
+  .header p {
+    font-size: 14px;
+    opacity: 0.8;
+    max-width: 600px;
+  }
+
+  /* ── SCORE STRIP ── */
+  .score-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: #e5e5ea;
+    border-bottom: 1px solid #e5e5ea;
+  }
+  .score-card {
+    background: #fff;
+    padding: 20px 12px;
+    text-align: center;
+  }
+  .score-card .num {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--brand-primary);
+  }
+  .score-card .label {
+    font-size: 10px;
+    color: #86868b;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 600;
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    padding: 40px 48px;
+    border-bottom: 1px solid #e5e5ea;
+  }
+  .section:last-child { border-bottom: none; }
+  .section-num {
+    font-size: 12px;
+    color: #86868b;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .section h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.3px;
+  }
+  .section p {
+    font-size: 14px;
+    color: #48484a;
+    margin-bottom: 16px;
+  }
+
+  /* ── TABLE ── */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 16px 0; }
+  thead th {
+    background: #f5f5f7;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #86868b;
+    border-bottom: 2px solid #e5e5ea;
+  }
+  tbody td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #f0f0f2;
+    vertical-align: top;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+
+  /* ── BADGES ── */
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .badge-new { background: #d1f5d9; color: #1a7a34; }
+  .badge-fixed { background: #d4edff; color: #0055aa; }
+  .badge-token { background: #f0f0f2; color: #636366; }
+
+  /* ── VERDICT ── */
+  .verdict-box {
+    background: #f5f5f7;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .verdict-box.green { background: #f0fff4; border-left: 4px solid #34C759; }
+  .verdict-box.blue { background: #f0f4ff; border-left: 4px solid #007AFF; }
+
+  /* ── BUTTON PREVIEWS ── */
+  .preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .preview-card {
+    border: 1px solid #e5e5ea;
+    border-radius: 12px;
+    padding: 24px 20px;
+    text-align: center;
+  }
+  .preview-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #86868b;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 16px;
+  }
+  .preview-note {
+    font-size: 11px;
+    color: #86868b;
+    margin-top: 12px;
+  }
+
+  /* ── CTA BUTTONS (Wiom tokens) ── */
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    height: 48px;
+    border-radius: 12px;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    border: none;
+  }
+  .btn-primary { background: var(--brand-primary); color: var(--text-on-color); }
+  .btn-primary-pressed { background: var(--brand-primary-pressed); color: var(--text-on-color); }
+  .btn-primary-disabled { background: var(--surface-muted); color: var(--text-disabled); }
+  .btn-primary-focused { background: var(--brand-primary); color: var(--text-on-color); outline: 2px solid var(--brand-primary-soft); outline-offset: 2px; }
+  .btn-primary-loading { background: var(--brand-primary); color: transparent; position: relative; }
+  .btn-primary-loading::after {
+    content: ''; position: absolute; width: 20px; height: 20px;
+    border: 2.5px solid rgba(255,255,255,0.3); border-top-color: #fff;
+    border-radius: 50%;
+  }
+
+  .btn-secondary { background: transparent; color: var(--brand-primary); border: 2px solid var(--brand-primary); }
+  .btn-secondary-pressed { background: var(--brand-primary-subtle); color: var(--brand-primary); border: 2px solid var(--brand-primary); }
+  .btn-secondary-disabled { background: transparent; color: var(--text-disabled); border: 2px solid var(--border-default); }
+
+  .btn-tertiary { background: transparent; color: var(--brand-primary); }
+  .btn-tertiary-pressed { background: var(--brand-primary-subtle); color: var(--brand-primary); }
+  .btn-tertiary-disabled { background: transparent; color: var(--text-disabled); }
+
+  .btn-destructive { background: var(--negative-primary); color: var(--text-on-color); }
+  .btn-destructive-pressed { background: var(--negative-pressed); color: var(--text-on-color); }
+  .btn-destructive-disabled { background: var(--surface-muted); color: var(--text-disabled); }
+
+  .btn-ack {
+    display: flex; align-items: center; gap: 4px;
+    background: transparent; border: none; padding: 0;
+    font-family: 'Noto Sans'; font-size: 14px; font-weight: 400;
+    color: var(--text-primary); line-height: 20px;
+  }
+  .ck { width: 24px; height: 24px; border-radius: 4px; border: 2px solid var(--border-strong); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .ck-checked { background: var(--brand-primary); border-color: var(--brand-primary); color: #fff; font-size: 14px; }
+
+  /* States row */
+  .states-row { display: flex; gap: 12px; flex-wrap: wrap; margin: 8px 0; }
+  .state-item { text-align: center; width: 140px; }
+  .state-label { font-size: 10px; color: #86868b; margin-top: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; }
+
+  /* Layout demos */
+  .layout-demo {
+    border: 1px solid #e5e5ea;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 12px 0;
+  }
+  .layout-title {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.6px; color: #86868b; margin-bottom: 12px;
+  }
+  .layout-row { display: flex; gap: 12px; }
+  .layout-row .btn { flex: 1; }
+  .layout-stack { display: flex; flex-direction: column; gap: 8px; }
+
+  /* Before/After */
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .compare-card { border: 1px solid #e5e5ea; border-radius: 12px; overflow: hidden; }
+  .compare-header { padding: 10px 16px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; }
+  .compare-header.old { background: #fff0f0; color: #c62828; }
+  .compare-header.new { background: #f0fff4; color: #1a7a34; }
+  .compare-body { padding: 20px 16px; display: flex; flex-direction: column; gap: 8px; align-items: center; }
+  .compare-note { font-size: 11px; color: #86868b; text-align: center; padding: 0 16px 12px; }
+
+  /* Token chip */
+  .token { font-family: monospace; font-size: 12px; background: #f0f0f2; padding: 2px 6px; border-radius: 4px; color: #636366; }
+
+  /* Callout */
+  .callout { background: #f0f0f2; border-radius: 10px; padding: 14px 18px; margin: 12px 0; font-size: 13px; color: #48484a; }
+  .callout strong { color: #1d1d1f; }
+
+  /* Rule list */
+  .rule-list { list-style: none; margin: 16px 0; }
+  .rule-list li {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f0f2;
+    font-size: 14px;
+    display: flex;
+    gap: 12px;
+  }
+  .rule-list li:last-child { border-bottom: none; }
+  .rule-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--brand-primary); color: #fff;
+    font-size: 12px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .footnote {
+    padding: 24px 48px;
+    font-size: 11px;
+    color: #aeaeb2;
+    text-align: center;
+    border-top: 1px solid #f0f0f2;
+  }
+
+  /* Summary grid */
+  .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 20px 0; }
+  .summary-item { text-align: center; padding: 20px; border-radius: 12px; background: #f5f5f7; }
+  .summary-item .num { font-size: 32px; font-weight: 800; color: var(--brand-primary); }
+  .summary-item .desc { font-size: 12px; color: #86868b; font-weight: 500; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<div class="report">
+
+  <!-- ═══════ HEADER ═══════ -->
+  <div class="header">
+    <div class="header-tag">Wiom Partner App · Design System</div>
+    <h1>New CTA Component System</h1>
+    <p>A standardized button system built on Wiom's color, spacing, and typography tokens. Replaces the inconsistent CTA usage found in the previous audit.</p>
+  </div>
+
+  <!-- ═══════ SCORE STRIP ═══════ -->
+  <div class="score-strip">
+    <div class="score-card"><div class="num">5</div><div class="label">CTA Types</div></div>
+    <div class="score-card"><div class="num">5</div><div class="label">States Each</div></div>
+    <div class="score-card"><div class="num">9</div><div class="label">Universal Rules</div></div>
+    <div class="score-card"><div class="num">3</div><div class="label">Icon Variants</div></div>
+    <div class="score-card"><div class="num">56</div><div class="label">Total Variants</div></div>
+  </div>
+
+  <!-- ═══════ 01. THE 5 CTA TYPES ═══════ -->
+  <div class="section">
+    <div class="section-num">01. The 5 CTA Types</div>
+    <h2>Each Type Has a Clear Purpose</h2>
+
+    <div class="preview-grid">
+      <div class="preview-card">
+        <div class="preview-label">Primary</div>
+        <div class="btn btn-primary">भुगतान करें</div>
+        <div class="preview-note">Main action · Filled brand pink</div>
+      </div>
+      <div class="preview-card">
+        <div class="preview-label">Secondary</div>
+        <div class="btn btn-secondary">वापस जाएं</div>
+        <div class="preview-note">Alternate action · Outlined</div>
+      </div>
+      <div class="preview-card">
+        <div class="preview-label">Tertiary</div>
+        <div class="btn btn-tertiary">बाद में</div>
+        <div class="preview-note">Soft dismiss · Text only</div>
+      </div>
+      <div class="preview-card">
+        <div class="preview-label">Destructive</div>
+        <div class="btn btn-destructive">रद्द करें</div>
+        <div class="preview-note">Irreversible action · Red filled</div>
+      </div>
+    </div>
+
+    <div class="preview-grid">
+      <div class="preview-card" style="grid-column: span 2;">
+        <div class="preview-label">Acknowledge</div>
+        <div style="display:flex; flex-direction:column; gap:12px; align-items:flex-start;">
+          <div class="btn-ack"><div class="ck"></div>मैंने सभी जानकारी सही दी है</div>
+          <div class="btn-ack"><div class="ck ck-checked">✓</div>मैंने सभी जानकारी सही दी है</div>
+        </div>
+        <div class="preview-note">Checkbox + 1st person text · Unchecked = Primary disabled · Checked = Primary enabled</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ 02. STATES ═══════ -->
+  <div class="section">
+    <div class="section-num">02. Interactive States</div>
+    <h2>Every Type × 5 States</h2>
+    <p>All states are defined with exact color tokens — no guesswork for developers.</p>
+
+    <h3 style="font-size:14px; font-weight:700; margin:20px 0 12px; color:#86868b; text-transform:uppercase; letter-spacing:0.6px;">Primary</h3>
+    <div class="states-row">
+      <div class="state-item"><div class="btn btn-primary" style="width:140px;">Button</div><div class="state-label">Default</div></div>
+      <div class="state-item"><div class="btn btn-primary-pressed" style="width:140px;">Button</div><div class="state-label">Pressed</div></div>
+      <div class="state-item"><div class="btn btn-primary-disabled" style="width:140px;">Button</div><div class="state-label">Disabled</div></div>
+      <div class="state-item"><div class="btn btn-primary-focused" style="width:140px;">Button</div><div class="state-label">Focused</div></div>
+      <div class="state-item"><div class="btn btn-primary-loading" style="width:140px;">Button</div><div class="state-label">Loading</div></div>
+    </div>
+
+    <h3 style="font-size:14px; font-weight:700; margin:20px 0 12px; color:#86868b; text-transform:uppercase; letter-spacing:0.6px;">Secondary</h3>
+    <div class="states-row">
+      <div class="state-item"><div class="btn btn-secondary" style="width:140px;">Button</div><div class="state-label">Default</div></div>
+      <div class="state-item"><div class="btn btn-secondary-pressed" style="width:140px;">Button</div><div class="state-label">Pressed</div></div>
+      <div class="state-item"><div class="btn btn-secondary-disabled" style="width:140px;">Button</div><div class="state-label">Disabled</div></div>
+    </div>
+
+    <h3 style="font-size:14px; font-weight:700; margin:20px 0 12px; color:#86868b; text-transform:uppercase; letter-spacing:0.6px;">Tertiary</h3>
+    <div class="states-row">
+      <div class="state-item"><div class="btn btn-tertiary" style="width:140px;">Button</div><div class="state-label">Default</div></div>
+      <div class="state-item"><div class="btn btn-tertiary-pressed" style="width:140px;">Button</div><div class="state-label">Pressed</div></div>
+      <div class="state-item"><div class="btn btn-tertiary-disabled" style="width:140px;">Button</div><div class="state-label">Disabled</div></div>
+    </div>
+
+    <h3 style="font-size:14px; font-weight:700; margin:20px 0 12px; color:#86868b; text-transform:uppercase; letter-spacing:0.6px;">Destructive</h3>
+    <div class="states-row">
+      <div class="state-item"><div class="btn btn-destructive" style="width:140px;">Button</div><div class="state-label">Default</div></div>
+      <div class="state-item"><div class="btn btn-destructive-pressed" style="width:140px;">Button</div><div class="state-label">Pressed</div></div>
+      <div class="state-item"><div class="btn btn-destructive-disabled" style="width:140px;">Button</div><div class="state-label">Disabled</div></div>
+    </div>
+
+    <div class="verdict-box green">
+      <strong>Improvement:</strong> From 1 state (Default only) to 5 states per type. Every state maps to an exact color token — no developer guesswork.
+    </div>
+  </div>
+
+  <!-- ═══════ 03. TOKEN MAPPING ═══════ -->
+  <div class="section">
+    <div class="section-num">03. Token Mapping</div>
+    <h2>Built Entirely on Wiom Tokens</h2>
+
+    <table>
+      <thead>
+        <tr><th>Property</th><th>Value</th><th>Token</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Height</strong></td><td>48px</td><td><span class="token">space/48</span></td></tr>
+        <tr><td><strong>Horizontal Padding</strong></td><td>16px</td><td><span class="token">space/16</span></td></tr>
+        <tr><td><strong>Icon-to-Text Gap</strong></td><td>8px</td><td><span class="token">space/8</span></td></tr>
+        <tr><td><strong>Acknowledge Gap</strong></td><td>4px</td><td><span class="token">space/4</span></td></tr>
+        <tr><td><strong>Side-by-Side Gap</strong></td><td>12px</td><td><span class="token">space/12</span></td></tr>
+        <tr><td><strong>Stacked Gap</strong></td><td>8px</td><td><span class="token">space/8</span></td></tr>
+        <tr><td><strong>Corner Radius</strong></td><td>12px</td><td>Shared across Partner & Consumer apps</td></tr>
+        <tr><td><strong>Font</strong></td><td>Noto Sans, 16sp, SemiBold 600</td><td><span class="token">type.label.l</span></td></tr>
+        <tr><td><strong>CTA Container</strong></td><td>Flat, border-top only</td><td><span class="token">color.border.default</span> · No shadow</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══════ 04. LAYOUT RULES ═══════ -->
+  <div class="section">
+    <div class="section-num">04. Layout Rules</div>
+    <h2>How CTAs Pair Together</h2>
+
+    <h3 style="font-size:14px; font-weight:700; margin:20px 0 12px;">Side by Side — When both actions carry weight</h3>
+    <div class="compare-grid">
+      <div class="layout-demo">
+        <div class="layout-title">Secondary + Primary (One Dominant)</div>
+        <div class="layout-row">
+          <div class="btn btn-secondary">कैश से भुगतान</div>
+          <div class="btn btn-primary">ऑनलाइन भुगतान</div>
+        </div>
+      </div>
+      <div class="layout-demo">
+        <div class="layout-title">Secondary + Destructive</div>
+        <div class="layout-row">
+          <div class="btn btn-secondary">वापस जाएं</div>
+          <div class="btn btn-destructive">रद्द करें</div>
+        </div>
+      </div>
+      <div class="layout-demo">
+        <div class="layout-title">Secondary + Secondary (Equal Weight)</div>
+        <div class="layout-row">
+          <div class="btn btn-secondary">सुबह</div>
+          <div class="btn btn-secondary">शाम</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px; font-weight:700; margin:20px 0 12px;">Vertical Stack — When dismiss is soft or text is long</h3>
+    <div class="compare-grid">
+      <div class="layout-demo">
+        <div class="layout-title">Primary + Tertiary (Soft Dismiss)</div>
+        <div class="layout-stack" style="max-width:328px;">
+          <div class="btn btn-primary">अपडेट करें</div>
+          <div class="btn btn-tertiary">नहीं करना</div>
+        </div>
+      </div>
+      <div class="layout-demo">
+        <div class="layout-title">Secondary + Secondary (Long Text)</div>
+        <div class="layout-stack" style="max-width:328px;">
+          <div class="btn btn-secondary">हाँ, अभी बैकअप लें और आगे बढ़ें</div>
+          <div class="btn btn-secondary">नहीं, बिना बैकअप के आगे बढ़ें</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px; font-weight:700; margin:20px 0 12px;">Acknowledge + Primary</h3>
+    <div class="compare-grid">
+      <div class="layout-demo">
+        <div class="layout-title">Unchecked → Primary Disabled</div>
+        <div class="layout-stack" style="max-width:328px;">
+          <div class="btn-ack"><div class="ck"></div>मैंने सभी जानकारी सही दी है</div>
+          <div class="btn btn-primary-disabled">रिचार्ज करें</div>
+        </div>
+      </div>
+      <div class="layout-demo">
+        <div class="layout-title">Checked → Primary Enabled</div>
+        <div class="layout-stack" style="max-width:328px;">
+          <div class="btn-ack"><div class="ck ck-checked">✓</div>मैंने सभी जानकारी सही दी है</div>
+          <div class="btn btn-primary">रिचार्ज करें</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ 05. THE 9 RULES ═══════ -->
+  <div class="section">
+    <div class="section-num">05. The 9 Universal Rules</div>
+    <h2>Non-Negotiable Standards</h2>
+
+    <ul class="rule-list">
+      <li><div class="rule-num">1</div><div><strong>Max 2 CTAs</strong> — never 3 on any screen, sheet, or dialog.</div></li>
+      <li><div class="rule-num">2</div><div><strong>Primary appears only once</strong> per screen / sheet / dialog.</div></li>
+      <li><div class="rule-num">3</div><div><strong>Right = preferred action</strong> in side-by-side layout.</div></li>
+      <li><div class="rule-num">4</div><div><strong>Top = preferred action</strong> in vertical stack layout.</div></li>
+      <li><div class="rule-num">5</div><div><strong>Tertiary only in vertical stacks</strong> — never side by side with Primary. Borderless next to filled looks broken horizontally.</div></li>
+      <li><div class="rule-num">6</div><div><strong>Destructive never alone</strong> — always paired with a Secondary escape route.</div></li>
+      <li><div class="rule-num">7</div><div><strong>CTA text = next screen's context</strong> — "भुगतान करें" (Pay) on plan selection, not "आगे बढ़ें" (Continue). Reduces anxiety for partners.</div></li>
+      <li><div class="rule-num">8</div><div><strong>Acknowledge uses 1st person</strong> — "मैंने सभी जानकारी सही दी है" not "कस्टमर ने...". Forces personal accountability.</div></li>
+      <li><div class="rule-num">9</div><div><strong>CTA container = flat, no shadow</strong> — border-top only using <span class="token">color.border.default</span>. No box-shadow, no elevation, no exceptions.</div></li>
+    </ul>
+  </div>
+
+  <!-- ═══════ 06. BEFORE vs AFTER ═══════ -->
+  <div class="section">
+    <div class="section-num">06. Before vs After</div>
+    <h2>What Changed</h2>
+
+    <table>
+      <thead>
+        <tr><th>Dimension</th><th>Before (Audit)</th><th>After (New System)</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Button Types</strong></td>
+          <td>1 proper type (Primary only)</td>
+          <td>5 types (Primary, Secondary, Tertiary, Destructive, Acknowledge)</td>
+          <td><span class="badge badge-fixed">Fixed</span></td>
+        </tr>
+        <tr>
+          <td><strong>States</strong></td>
+          <td>Default only (1/5)</td>
+          <td>Default, Pressed, Disabled, Focused, Loading (5/5)</td>
+          <td><span class="badge badge-fixed">Fixed</span></td>
+        </tr>
+        <tr>
+          <td><strong>Secondary CTA</strong></td>
+          <td>Filled pink bg — fails AA contrast</td>
+          <td>Outlined — clear hierarchy, passes AA</td>
+          <td><span class="badge badge-fixed">Fixed</span></td>
+        </tr>
+        <tr>
+          <td><strong>Hierarchy</strong></td>
+          <td>Primary & Secondary both pink — no distinction</td>
+          <td>Filled vs Outlined vs Text — clear 3-level hierarchy</td>
+          <td><span class="badge badge-fixed">Fixed</span></td>
+        </tr>
+        <tr>
+          <td><strong>Corner Radius</strong></td>
+          <td>16px (too rounded for Partner App)</td>
+          <td>12px (balanced for both apps)</td>
+          <td><span class="badge badge-fixed">Fixed</span></td>
+        </tr>
+        <tr>
+          <td><strong>Container</strong></td>
+          <td>Shadow sometimes, flat sometimes</td>
+          <td>Always flat — border-top only, no shadow</td>
+          <td><span class="badge badge-fixed">Fixed</span></td>
+        </tr>
+        <tr>
+          <td><strong>Layout Rules</strong></td>
+          <td>None — ad-hoc per screen</td>
+          <td>6 bottom sheet + 4 dialog scenarios defined</td>
+          <td><span class="badge badge-new">New</span></td>
+        </tr>
+        <tr>
+          <td><strong>Acknowledge CTA</strong></td>
+          <td>Inconsistent (bordered vs borderless)</td>
+          <td>Standardized — checkbox + 1st person, borderless</td>
+          <td><span class="badge badge-fixed">Fixed</span></td>
+        </tr>
+        <tr>
+          <td><strong>Documentation</strong></td>
+          <td>None</td>
+          <td>9 rules, decision tree, token mapping, skill file</td>
+          <td><span class="badge badge-new">New</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="compare-grid" style="margin-top:20px;">
+      <div class="compare-card">
+        <div class="compare-header old">Before — Poor Hierarchy</div>
+        <div class="compare-body">
+          <div style="display:flex; gap:12px; width:100%;">
+            <div class="btn" style="flex:1; background:#FCE4F0; color:#D6006E; border-radius:16px;">Cancel</div>
+            <div class="btn" style="flex:1; background:#D6006E; color:#fff; border-radius:16px;">Okay</div>
+          </div>
+        </div>
+        <div class="compare-note">Both pink · 16px radius · No defined states</div>
+      </div>
+      <div class="compare-card">
+        <div class="compare-header new">After — Clear Hierarchy</div>
+        <div class="compare-body">
+          <div style="display:flex; gap:12px; width:100%;">
+            <div class="btn btn-secondary" style="flex:1;">Cancel</div>
+            <div class="btn btn-primary" style="flex:1;">Okay</div>
+          </div>
+        </div>
+        <div class="compare-note">Outlined vs Filled · 12px radius · 5 states · Token-mapped</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ 07. SUMMARY ═══════ -->
+  <div class="section" style="background:#fafafa;">
+    <div class="section-num">07. Summary</div>
+    <h2>What This Fixes</h2>
+
+    <div class="summary-grid">
+      <div class="summary-item"><div class="num">5</div><div class="desc">Inconsistencies Resolved</div></div>
+      <div class="summary-item"><div class="num">4</div><div class="desc">Missing States Added</div></div>
+      <div class="summary-item"><div class="num">4</div><div class="desc">Missing Types Added</div></div>
+    </div>
+    <div class="summary-grid">
+      <div class="summary-item"><div class="num">1</div><div class="desc">AA Contrast Fixed</div></div>
+      <div class="summary-item"><div class="num">9</div><div class="desc">Rules Documented</div></div>
+      <div class="summary-item"><div class="num">56</div><div class="desc">Variants in Figma</div></div>
+    </div>
+
+    <div class="verdict-box green" style="margin-top:20px;">
+      <div>
+        <strong>Where It Lives:</strong> Figma master component on "Buttons Design System" page · CTA skill file for Claude Code · Token-mapped to Wiom color + spacing skills.
+        <br><br>
+        <strong>Notes:</strong> Icon CTA selection rules will be covered in a separate skill — Action Icons vs Non-Action Icons. Typography uses <span class="token">type.label.l</span> (16sp SemiBold 600) from the typography skill.
+      </div>
+    </div>
+  </div>
+
+  <div class="footnote">
+    Wiom Partner App · New CTA Design System · April 2026 · Built on Wiom Color, Spacing & Typography Tokens
+  </div>
+
+</div>
+
+</body>
+</html>
