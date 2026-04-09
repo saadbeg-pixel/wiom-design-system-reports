@@ -330,7 +330,7 @@
   <div class="score-strip">
     <div class="score-card"><div class="num">5</div><div class="label">CTA Types</div></div>
     <div class="score-card"><div class="num">5</div><div class="label">States Each</div></div>
-    <div class="score-card"><div class="num">9</div><div class="label">Universal Rules</div></div>
+    <div class="score-card"><div class="num">12</div><div class="label">Universal Rules</div></div>
     <div class="score-card"><div class="num">3</div><div class="label">Icon Variants</div></div>
     <div class="score-card"><div class="num">56</div><div class="label">Total Variants</div></div>
   </div>
@@ -506,9 +506,9 @@
     </div>
   </div>
 
-  <!-- ═══════ 05. THE 9 RULES ═══════ -->
+  <!-- ═══════ 05. THE 12 RULES ═══════ -->
   <div class="section">
-    <div class="section-num">05. The 9 Universal Rules</div>
+    <div class="section-num">05. The 12 Universal Rules</div>
     <h2>Non-Negotiable Standards</h2>
 
     <ul class="rule-list">
@@ -521,7 +521,65 @@
       <li><div class="rule-num">7</div><div><strong>CTA text = next screen's context</strong> — "भुगतान करें" (Pay) on plan selection, not "आगे बढ़ें" (Continue). Reduces anxiety for partners.</div></li>
       <li><div class="rule-num">8</div><div><strong>Acknowledge uses 1st person</strong> — "मैंने सभी जानकारी सही दी है" not "कस्टमर ने...". Forces personal accountability.</div></li>
       <li><div class="rule-num">9</div><div><strong>CTA container = flat, no shadow</strong> — border-top only using <span class="token">color.border.default</span>. No box-shadow, no elevation, no exceptions.</div></li>
+      <li><div class="rule-num">10</div><div><strong>CTA text never wraps, truncates, or shrinks</strong> — if text is too long, rewrite shorter copy. Do not reduce font size. Do not add ellipsis. Do not allow multi-line button text.</div></li>
+      <li><div class="rule-num">11</div><div><strong>Layout decided by delta (importance gap)</strong> — Low/zero delta (equal weight) → horizontal side by side. High delta (dominant + dismiss) → vertical stack.</div></li>
+      <li><div class="rule-num">12</div><div><strong>Equal-weight CTAs: try horizontal first</strong> — shorten text to fit side by side. Only switch to vertical if shortening loses critical context for the user's decision.</div></li>
     </ul>
+  </div>
+
+  <!-- ═══════ 05a. DELTA LAYOUT LOGIC ═══════ -->
+  <div class="section">
+    <div class="section-num">05a. Delta-Based Layout Logic</div>
+    <h2>How Layout Is Decided</h2>
+    <p>The "delta" is the importance gap between two CTAs. It determines whether they sit side by side or stack vertically.</p>
+
+    <table>
+      <thead>
+        <tr><th>Pairing</th><th>Delta</th><th>Layout</th><th>Why</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Secondary + Primary</strong></td>
+          <td>Medium</td>
+          <td>Horizontal</td>
+          <td>Both carry weight — user makes a real choice</td>
+        </tr>
+        <tr>
+          <td><strong>Primary + Tertiary</strong></td>
+          <td>High</td>
+          <td>Vertical</td>
+          <td>One dominant, one throwaway dismiss</td>
+        </tr>
+        <tr>
+          <td><strong>Secondary + Secondary (short)</strong></td>
+          <td>Zero</td>
+          <td>Horizontal</td>
+          <td>Equal weight, text fits side by side</td>
+        </tr>
+        <tr>
+          <td><strong>Secondary + Secondary (long)</strong></td>
+          <td>Zero</td>
+          <td>Vertical</td>
+          <td>Equal weight, but shortening text would lose context</td>
+        </tr>
+        <tr>
+          <td><strong>Secondary + Destructive</strong></td>
+          <td>Medium</td>
+          <td>Horizontal</td>
+          <td>Both carry weight — escape route is a real option</td>
+        </tr>
+        <tr>
+          <td><strong>Acknowledge + Primary</strong></td>
+          <td>N/A</td>
+          <td>Vertical (always)</td>
+          <td>Sequential — confirm then act, not a parallel choice</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <strong>The decision flow:</strong> Two CTAs on screen → measure delta → low delta? try to shorten text for horizontal → can't shorten without losing meaning? → go vertical. High delta? → vertical with dominant on top, dismiss below.
+    </div>
   </div>
 
   <!-- ═══════ 06. BEFORE vs AFTER ═══════ -->
@@ -627,7 +685,7 @@
     </div>
     <div class="summary-grid">
       <div class="summary-item"><div class="num">1</div><div class="desc">AA Contrast Fixed</div></div>
-      <div class="summary-item"><div class="num">9</div><div class="desc">Rules Documented</div></div>
+      <div class="summary-item"><div class="num">12</div><div class="desc">Rules Documented</div></div>
       <div class="summary-item"><div class="num">56</div><div class="desc">Variants in Figma</div></div>
     </div>
 
