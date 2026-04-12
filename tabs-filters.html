@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wiom — Tabs, Filters & Chips System</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #f5f5f7; padding: 40px 20px; color: #1d1d1f; line-height: 1.6; }
+  .report { max-width: 960px; margin: 0 auto; background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+
+  .header { background: linear-gradient(135deg, #161021 0%, #2d2d30 100%); color: #fff; padding: 48px; }
+  .header-tag { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.6; margin-bottom: 8px; }
+  .header h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .header p { font-size: 14px; opacity: 0.7; max-width: 600px; }
+
+  .score-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: #e5e5ea; border-bottom: 1px solid #e5e5ea; }
+  .score-card { background: #fff; padding: 20px 16px; text-align: center; }
+  .score-card .num { font-size: 28px; font-weight: 800; color: #D9008D; }
+  .score-card .label { font-size: 10px; color: #86868b; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+
+  .section { padding: 40px 48px; border-bottom: 1px solid #e5e5ea; }
+  .section:last-child { border-bottom: none; }
+  .section-num { font-size: 12px; color: #86868b; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 700; margin-bottom: 4px; }
+  .section h2 { font-size: 22px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.3px; }
+  .section p { font-size: 14px; color: #48484a; margin-bottom: 16px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 16px 0; }
+  thead th { background: #f5f5f7; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; color: #86868b; border-bottom: 2px solid #e5e5ea; }
+  tbody td { padding: 12px 14px; border-bottom: 1px solid #f0f0f2; vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; }
+  .badge-l1 { background: #FFE5F6; color: #D9008D; }
+  .badge-l2 { background: #E4CCFF; color: #6D17CE; }
+  .badge-l3 { background: #E1FAED; color: #008043; }
+  .badge-no { background: #ffd4d4; color: #c62828; }
+  .badge-yes { background: #d1f5d9; color: #1a7a34; }
+
+  .verdict-box { background: #f5f5f7; border-radius: 12px; padding: 16px 20px; margin: 16px 0; font-size: 14px; font-weight: 500; }
+  .verdict-box.green { background: #f0fff4; border-left: 4px solid #34C759; }
+  .verdict-box.blue { background: #f0f4ff; border-left: 4px solid #007AFF; }
+
+  .callout { background: #f0f0f2; border-radius: 10px; padding: 14px 18px; margin: 12px 0; font-size: 13px; color: #48484a; }
+  .callout strong { color: #1d1d1f; }
+  .token { font-family: monospace; font-size: 12px; background: #f0f0f2; padding: 2px 6px; border-radius: 4px; color: #636366; }
+
+  /* Component previews */
+  .preview-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 20px 0; }
+  .preview-card { border: 1px solid #e5e5ea; border-radius: 12px; padding: 24px 20px; text-align: center; }
+  .preview-label { font-size: 11px; font-weight: 600; color: #86868b; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 16px; }
+  .preview-note { font-size: 11px; color: #86868b; margin-top: 12px; }
+
+  /* Pill demo */
+  .pill-track { display: flex; background: #E8E4F0; border-radius: 12px; padding: 4px; }
+  .pill { flex: 1; display: flex; align-items: center; justify-content: center; height: 32px; border-radius: 8px; font-family: 'Noto Sans'; font-size: 14px; }
+  .pill.active { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.15); font-weight: 600; color: #D9008D; }
+  .pill.inactive { color: #5C5570; }
+
+  /* Underline demo */
+  .ul-bar { display: flex; border-bottom: 1px solid #D7D3E0; }
+  .ul-tab { flex: 1; display: flex; align-items: center; justify-content: center; height: 48px; font-family: 'Noto Sans'; font-size: 14px; color: #5C5570; position: relative; }
+  .ul-tab.active { color: #D9008D; font-weight: 600; }
+  .ul-tab.active::after { content: ''; position: absolute; bottom: 0; left: 20%; right: 20%; height: 2px; background: #D9008D; border-radius: 9999px; }
+
+  /* Chip demo */
+  .chip { display: inline-flex; align-items: center; gap: 4px; height: 36px; padding: 0 12px; border-radius: 8px; font-family: 'Noto Sans'; font-size: 14px; }
+  .chip.unsel { border: 1px solid #D7D3E0; color: #161021; }
+  .chip.sel { background: #FFE5F6; color: #D9008D; font-weight: 600; }
+
+  /* Decision tree */
+  .tree { background: #f5f5f7; border-radius: 12px; padding: 24px; margin: 16px 0; font-family: monospace; font-size: 13px; line-height: 1.8; color: #48484a; white-space: pre-wrap; }
+
+  /* Rule list */
+  .rule-list { list-style: none; margin: 16px 0; }
+  .rule-list li { padding: 12px 16px; border-bottom: 1px solid #f0f0f2; font-size: 14px; display: flex; gap: 12px; }
+  .rule-list li:last-child { border-bottom: none; }
+  .rule-num { width: 28px; height: 28px; border-radius: 50%; background: #D9008D; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+  .footnote { padding: 24px 48px; font-size: 11px; color: #aeaeb2; text-align: center; border-top: 1px solid #f0f0f2; }
+
+  /* Hierarchy diagram */
+  .hierarchy-diagram { display: flex; flex-direction: column; gap: 8px; margin: 16px 0; }
+  .h-level { display: flex; align-items: center; gap: 16px; padding: 16px 20px; border-radius: 12px; }
+  .h-level.l1 { background: #FFE5F6; }
+  .h-level.l2 { background: #F1E5FF; margin-left: 40px; }
+  .h-level.l3 { background: #E1FAED; margin-left: 80px; }
+  .h-arrow { color: #86868b; font-size: 12px; margin-left: 20px; }
+</style>
+</head>
+<body>
+
+<div class="report">
+
+  <div class="header">
+    <div class="header-tag">Wiom Partner App · Design System</div>
+    <h1>Tabs, Filters & Chips</h1>
+    <p>A 3-level filtering hierarchy — Context Switch (Pill) → Single Select (Underline) → Multi-Select (Chips). Built on Wiom tokens.</p>
+  </div>
+
+  <div class="score-strip">
+    <div class="score-card"><div class="num">3</div><div class="label">Components</div></div>
+    <div class="score-card"><div class="num">3</div><div class="label">Hierarchy Levels</div></div>
+    <div class="score-card"><div class="num">31</div><div class="label">Variables Bound</div></div>
+    <div class="score-card"><div class="num">18</div><div class="label">Total Variants</div></div>
+  </div>
+
+  <!-- 01. THE 3 COMPONENTS -->
+  <div class="section">
+    <div class="section-num">01. The 3 Components</div>
+    <h2>Each Solves a Different Filtering Need</h2>
+
+    <div class="preview-grid">
+      <div class="preview-card">
+        <div class="preview-label">Level 1 — Pill Tab</div>
+        <div class="pill-track">
+          <div class="pill active">मेरे टिकट</div>
+          <div class="pill inactive">टीम के टिकट</div>
+        </div>
+        <div class="preview-note">Context Switch<br>"Whose data am I looking at?"</div>
+      </div>
+      <div class="preview-card">
+        <div class="preview-label">Level 2 — Underline Filter</div>
+        <div class="ul-bar">
+          <div class="ul-tab active">सभी</div>
+          <div class="ul-tab">पेंडिंग</div>
+          <div class="ul-tab">बंद</div>
+        </div>
+        <div class="preview-note">Single Select Filter<br>"Which subset do I want?"</div>
+      </div>
+      <div class="preview-card">
+        <div class="preview-label">Level 3 — Chips</div>
+        <div style="display:flex; gap:6px; justify-content:center; flex-wrap:wrap;">
+          <div class="chip sel">✓ इंस्टॉलेशन ✕</div>
+          <div class="chip unsel">रिपेयर</div>
+        </div>
+        <div class="preview-note">Multi-Select Toggle<br>"Which attributes to include?"</div>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>Component</th><th>Selection</th><th>Data Impact</th><th>Max Options</th><th>Level</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Pill Tab</strong></td><td>Single (mode switch)</td><td>Changes entire dataset</td><td>4</td><td><span class="badge badge-l1">Level 1</span></td></tr>
+        <tr><td><strong>Underline Filter</strong></td><td>Single (status/category)</td><td>Narrows same dataset</td><td>~8 (with overflow)</td><td><span class="badge badge-l2">Level 2</span></td></tr>
+        <tr><td><strong>Chips</strong></td><td>Multi-select (toggle)</td><td>Combines criteria additively</td><td>Unlimited (wraps)</td><td><span class="badge badge-l3">Level 3</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 02. HIERARCHY -->
+  <div class="section">
+    <div class="section-num">02. Visual Hierarchy</div>
+    <h2>How They Stack on a Screen</h2>
+
+    <div class="hierarchy-diagram">
+      <div class="h-level l1">
+        <span class="badge badge-l1">Level 1</span>
+        <strong>Pill Tab</strong> — "Whose data?" (मेरे टिकट / टीम के टिकट)
+      </div>
+      <div class="h-arrow">↓ narrows to</div>
+      <div class="h-level l2">
+        <span class="badge badge-l2">Level 2</span>
+        <strong>Underline Filter</strong> — "Which status?" (सभी / पेंडिंग / बंद / एक्सपायर्ड)
+      </div>
+      <div class="h-arrow">↓ further filters by</div>
+      <div class="h-level l3">
+        <span class="badge badge-l3">Level 3</span>
+        <strong>Chips / Section Headers</strong> — "Which type?" (इंस्टॉलेशन + रिपेयर) or grouped in content
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Rule:</strong> Max 2 filter levels on screen as UI controls. If a 3rd level is needed, use section headers in the content list — not another filter bar.
+    </div>
+  </div>
+
+  <!-- 03. DECISION TREE -->
+  <div class="section">
+    <div class="section-num">03. Decision Tree</div>
+    <h2>Which Component to Use?</h2>
+
+    <div class="tree">New filter/tab needed on a screen. Ask:
+
+1. Does selecting this option change the ENTIRE dataset?
+   (different source, different structure)
+   → YES: <strong>Pill Tab</strong>
+   → NO: Continue ↓
+
+2. Can only ONE option be active at a time?
+   (statuses, states, single-category view)
+   → YES: <strong>Underline Filter</strong>
+   → NO: Continue ↓
+
+3. Can MULTIPLE options be active simultaneously?
+   (combining attributes, additive filtering)
+   → YES: <strong>Chips</strong>
+   → NO: Rethink the interaction</div>
+  </div>
+
+  <!-- 04. COMBINATION RULES -->
+  <div class="section">
+    <div class="section-num">04. Combination Rules</div>
+    <h2>What Can Appear Together?</h2>
+
+    <table>
+      <thead>
+        <tr><th>Combination</th><th>Valid?</th><th>Rule</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Pill + Underline</td><td><span class="badge badge-yes">Yes</span></td><td>Pill above, Underline below. Most common 2-level pattern.</td></tr>
+        <tr><td>Pill + Chips</td><td><span class="badge badge-yes">Yes</span></td><td>Pill for mode, Chips for attribute filter within content. Rare.</td></tr>
+        <tr><td>Underline + Chips</td><td><span class="badge badge-yes">Yes</span></td><td>Underline for status, Chips for type. Only for long lists.</td></tr>
+        <tr><td>Pill + Underline + Chips</td><td><span class="badge badge-no">No</span></td><td>3 levels = too complex. Use section headers for 3rd level.</td></tr>
+        <tr><td>Two Pills</td><td><span class="badge badge-no">No</span></td><td>Only one context switch per screen.</td></tr>
+        <tr><td>Two Underlines</td><td><span class="badge badge-no">No</span></td><td>Combine into one, or use Chips for second dimension.</td></tr>
+        <tr><td>Pill below Underline</td><td><span class="badge badge-no">No</span></td><td>Broader decision (Pill) always above narrower (Underline).</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 05. TOKEN MAP -->
+  <div class="section">
+    <div class="section-num">05. Token Mapping</div>
+    <h2>Every Value Traced to a Skill</h2>
+
+    <table>
+      <thead>
+        <tr><th>Property</th><th>Pill Tab</th><th>Underline Filter</th><th>Chips</th><th>Source</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Active text</strong></td><td colspan="3"><span class="token">color/brand/primary</span> #D9008D · SemiBold 600 · 14sp</td><td>Color + Typography</td></tr>
+        <tr><td><strong>Inactive text</strong></td><td colspan="3"><span class="token">color/text/secondary</span> #5C5570 · Regular 400 · 14sp</td><td>Color + Typography</td></tr>
+        <tr><td><strong>Disabled</strong></td><td colspan="3">40% opacity</td><td>Color skill</td></tr>
+        <tr><td><strong>Radius</strong></td><td>Track: 12px / Pill: 8px</td><td>Indicator: 9999px</td><td>8px</td><td>Radius skill</td></tr>
+        <tr><td><strong>Shadow</strong></td><td>Active: <span class="token">shadow.sm</span></td><td><span class="token">shadow.none</span></td><td><span class="token">shadow.none</span></td><td>Shadow skill</td></tr>
+        <tr><td><strong>Border</strong></td><td>None</td><td>Divider: 1px</td><td>Unselected: 1px / Selected: none</td><td>Stroke skill</td></tr>
+        <tr><td><strong>Active indicator</strong></td><td>White fill + shadow</td><td>2px brand bar (bottom)</td><td>Fill (brand-tint)</td><td>Stroke + Color</td></tr>
+        <tr><td><strong>Badge</strong></td><td colspan="2"><span class="token">radius/full</span> · brand/primary (active) · surface/muted (inactive)</td><td>—</td><td>Radius + Color</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 06. PARTNER APP RULES -->
+  <div class="section">
+    <div class="section-num">06. Partner App Rules</div>
+    <h2>Wiom-Specific Guidelines</h2>
+
+    <ul class="rule-list">
+      <li><div class="rule-num">1</div><div><strong>List < 20 items</strong> → one filter level is enough. Don't over-engineer.</div></li>
+      <li><div class="rule-num">2</div><div><strong>Filter used < 3 times per session</strong> → make it a bottom sheet action, not a persistent filter bar.</div></li>
+      <li><div class="rule-num">3</div><div><strong>Only 2 options</strong> → consider if you even need a component. Maybe show both inline.</div></li>
+      <li><div class="rule-num">4</div><div><strong>Pill is always optional</strong> → if screen shows only one dataset, skip it. Don't add a Pill just to have one.</div></li>
+      <li><div class="rule-num">5</div><div><strong>Max 2 filter levels on screen</strong> → 3rd level = section headers in content, not more UI controls.</div></li>
+      <li><div class="rule-num">6</div><div><strong>Underline overflow</strong> → More button opens bottom sheet with Radio select + Primary CTA. CTA disabled until selection.</div></li>
+      <li><div class="rule-num">7</div><div><strong>Chips: selected = no border</strong> → filled state rule from stroke skill. Fill IS the boundary.</div></li>
+      <li><div class="rule-num">8</div><div><strong>Pill above Underline</strong> → never reverse. Broader decision always above narrower.</div></li>
+    </ul>
+  </div>
+
+  <div class="footnote">
+    Wiom Partner App · Tabs, Filters & Chips System · April 2026 · Built on Wiom Color, Spacing, Radius, Shadow & Stroke Tokens
+  </div>
+
+</div>
+
+</body>
+</html>
