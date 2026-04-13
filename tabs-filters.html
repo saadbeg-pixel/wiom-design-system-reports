@@ -67,7 +67,7 @@
 
   /* Chip demo */
   .chip { display: inline-flex; align-items: center; gap: 4px; height: 36px; padding: 0 12px; border-radius: 8px; font-family: 'Noto Sans'; font-size: 14px; }
-  .chip.unsel { border: 1px solid #D7D3E0; color: #161021; }
+  .chip.unsel { border: 1px solid #E8E4F0; color: #161021; }
   .chip.sel { background: #FFE5F6; color: #D9008D; font-weight: 600; }
 
   /* Decision tree */
@@ -89,6 +89,7 @@
   .h-level.l3 { background: #E1FAED; margin-left: 80px; }
   .h-arrow { color: #86868b; font-size: 12px; margin-left: 20px; }
 </style>
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 </head>
 <body>
 
@@ -238,9 +239,9 @@
         <tr><td><strong>Disabled</strong></td><td colspan="3">40% opacity</td><td>Color skill</td></tr>
         <tr><td><strong>Radius</strong></td><td>Track: 12px / Pill: 8px</td><td>Indicator: 9999px</td><td>8px</td><td>Radius skill</td></tr>
         <tr><td><strong>Shadow</strong></td><td>Active: <span class="token">shadow.sm</span></td><td><span class="token">shadow.none</span></td><td><span class="token">shadow.none</span></td><td>Shadow skill</td></tr>
-        <tr><td><strong>Border</strong></td><td>None</td><td>Divider: 1px</td><td>Unselected: 1px / Selected: none</td><td>Stroke skill</td></tr>
-        <tr><td><strong>Active indicator</strong></td><td>White fill + shadow</td><td>2px brand bar (bottom)</td><td>Fill (brand-tint)</td><td>Stroke + Color</td></tr>
-        <tr><td><strong>Badge</strong></td><td colspan="2"><span class="token">radius/full</span> · brand/primary (active) · surface/muted (inactive)</td><td>—</td><td>Radius + Color</td></tr>
+        <tr><td><strong>Border</strong></td><td>None</td><td>Divider: 1px</td><td>Unselected: 1px border.subtle / Selected: none</td><td>Stroke skill</td></tr>
+        <tr><td><strong>Active indicator</strong></td><td>White fill + shadow</td><td>2px brand bar (bottom)</td><td>Fill (surface.selected)</td><td>Stroke + Color</td></tr>
+        <tr><td><strong>Badge</strong></td><td colspan="2"><span class="token">radius/tiny</span> (4px) · brand/primary (active) · surface/muted (inactive)</td><td>—</td><td>Radius + Color</td></tr>
       </tbody>
     </table>
   </div>
