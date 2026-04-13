@@ -160,7 +160,7 @@
   /* ── VERDICT ── */
   .verdict-box {
     background: #f5f5f7;
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 16px 20px;
     margin: 16px 0;
     font-size: 14px;
@@ -181,7 +181,7 @@
   }
   .preview-card {
     border: 1px solid #e5e5ea;
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 24px 20px;
     text-align: center;
   }
@@ -207,7 +207,7 @@
     gap: 8px;
     width: 100%;
     height: 48px;
-    border-radius: 12px;
+    border-radius: 16px;
     font-family: 'Noto Sans', sans-serif;
     font-size: 16px;
     font-weight: 600;
@@ -254,7 +254,7 @@
   /* Layout demos */
   .layout-demo {
     border: 1px solid #e5e5ea;
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 20px;
     margin: 12px 0;
   }
@@ -268,7 +268,7 @@
 
   /* Before/After */
   .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
-  .compare-card { border: 1px solid #e5e5ea; border-radius: 12px; overflow: hidden; }
+  .compare-card { border: 1px solid #e5e5ea; border-radius: 16px; overflow: hidden; }
   .compare-header { padding: 10px 16px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; }
   .compare-header.old { background: #fff0f0; color: #c62828; }
   .compare-header.new { background: #f0fff4; color: #1a7a34; }
@@ -310,7 +310,7 @@
 
   /* Summary grid */
   .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 20px 0; }
-  .summary-item { text-align: center; padding: 20px; border-radius: 12px; background: #f5f5f7; }
+  .summary-item { text-align: center; padding: 20px; border-radius: 16px; background: #f5f5f7; }
   .summary-item .num { font-size: 32px; font-weight: 800; color: var(--brand-primary); }
   .summary-item .desc { font-size: 12px; color: #86868b; font-weight: 500; margin-top: 4px; }
 </style>
@@ -432,7 +432,7 @@
         <tr><td><strong>Acknowledge Gap</strong></td><td>4px</td><td><span class="token">space/4</span></td></tr>
         <tr><td><strong>Side-by-Side Gap</strong></td><td>12px</td><td><span class="token">space/12</span></td></tr>
         <tr><td><strong>Stacked Gap</strong></td><td>8px</td><td><span class="token">space/8</span></td></tr>
-        <tr><td><strong>Corner Radius</strong></td><td>12px</td><td>Shared across Partner & Consumer apps</td></tr>
+        <tr><td><strong>Corner Radius</strong></td><td>16px</td><td><span class="token">radius/large</span> (foundation: buttons = radius-large)</td></tr>
         <tr><td><strong>Font</strong></td><td>Noto Sans, 16sp, SemiBold 600</td><td><span class="token">type.label.l</span></td></tr>
         <tr><td><strong>CTA Container</strong></td><td>Flat, border-top only</td><td><span class="token">color.border.default</span> · No shadow</td></tr>
       </tbody>
@@ -619,7 +619,7 @@
         <tr>
           <td><strong>Corner Radius</strong></td>
           <td>16px (too rounded for Partner App)</td>
-          <td>12px (balanced for both apps)</td>
+          <td>16px (radius-large per foundation)</td>
           <td><span class="badge badge-fixed">Fixed</span></td>
         </tr>
         <tr>
@@ -668,7 +668,7 @@
             <div class="btn btn-primary" style="flex:1;">Okay</div>
           </div>
         </div>
-        <div class="compare-note">Outlined vs Filled · 12px radius · 5 states · Token-mapped</div>
+        <div class="compare-note">Outlined vs Filled · 16px radius · 5 states · All variables bound</div>
       </div>
     </div>
   </div>
